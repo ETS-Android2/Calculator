@@ -21,3 +21,6 @@ This app does not collect any data. It's a simple calculator application which e
 -----------------------------------------------------------------------------------------------------------------------------
 
 <img src="https://i.imgur.com/LnC34jA.jpg" width="360" height="740"> <img src="https://i.imgur.com/iVcquBq.png" width="360" height="740">
+
+
+![](https://i.imgur.com/DW8Eu35.jpg)
