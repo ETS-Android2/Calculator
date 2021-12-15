@@ -21,3 +21,7 @@ This app does not collect any data. It's a simple calculator application which e
 <img src="https://i.imgur.com/LnC34jA.jpg" width="180" height="370"> <img src="https://i.imgur.com/mePsi59.jpg" width="180" height="370"> <img src="https://i.imgur.com/iVcquBq.png" width="180" height="370">
 
 <img src="https://i.imgur.com/DW8Eu35.jpg" width="641" height="481">
+
+# Play Store Download Link
+
+https://play.google.com/store/apps/details?id=com.e.calculator
