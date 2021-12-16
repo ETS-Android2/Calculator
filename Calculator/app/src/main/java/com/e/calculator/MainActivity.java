@@ -164,10 +164,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     private void switchViews()
     {
-        if (!lastEntrySign())
+        if ((!TvResult.getText().toString().endsWith("Infinity")) && (!TvResult.getText().toString().equals("NaN")))
         {
-            TvHistory.setText(TvPrakseis.getText().toString());
-            TvPrakseis.setText(TvResult.getText().toString());
+            if (!lastEntrySign())
+            {
+                TvHistory.setText(TvPrakseis.getText().toString());
+                TvPrakseis.setText(TvResult.getText().toString());
+            }
         }
     }
     /**
