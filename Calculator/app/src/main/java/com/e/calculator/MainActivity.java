@@ -3,6 +3,7 @@ package com.e.calculator;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -43,7 +44,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void playMusic()
     {
         // Vivaldi - Summer (Four Seasons)
-        startService(new Intent(this, MusicService.class));
+        // try-catch μήπως σώσω τίποτα..
+        try
+        {
+            startService(new Intent(this, MusicService.class));
+        }
+        catch (Exception e)
+        {
+            Log.e("Exception at", "playMusic: ", e);
+        }
+    }
+
+    /**
+     * onStop: σταματάει την αναπαραγωγή μουσικής όταν η εφαρμογή πάει στο background
+     */
+    @Override
+    protected void onStop()
+    {
+        super.onStop();
+        stopService(new Intent(this, MusicService.class));
+    }
+
+    /**
+     * onRestart: ξαναρχίζει την αναπαραγωγή μουσικής όταν η εφαρμογή ξαναβρεθεί στο foreground
+     */
+    @Override
+    protected void onRestart()
+    {
+        super.onRestart();
+        playMusic();
     }
 
     /**
