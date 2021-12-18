@@ -1,9 +1,8 @@
 package com.e.calculator;
 
 import androidx.appcompat.app.AppCompatActivity;
-import android.content.Intent;
+
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -35,7 +34,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         initializeButtons();
         setListeners();
-        playMusic();
+        try
+        {
+            playMusic();
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -43,15 +49,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
      */
     private void playMusic()
     {
-        // Vivaldi - Summer (Four Seasons)
-        // try-catch μήπως σώσω τίποτα..
         try
         {
-            startService(new Intent(this, MusicService.class));
+            MediaPlayerClass.initPlayer(this.getApplicationContext());
         }
         catch (Exception e)
         {
-            Log.e("Exception at", "playMusic: ", e);
+            e.printStackTrace();
         }
     }
 
@@ -62,17 +66,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onStop()
     {
         super.onStop();
-        stopService(new Intent(this, MusicService.class));
+        MediaPlayerClass.PausePlayer();
     }
 
     /**
-     * onRestart: ξαναρχίζει την αναπαραγωγή μουσικής όταν η εφαρμογή ξαναβρεθεί στο foreground
+     * onRestart: συνεχίζει την αναπαραγωγή μουσικής όταν η εφαρμογή ξαναβρεθεί στο foreground
      */
     @Override
     protected void onRestart()
     {
         super.onRestart();
-        playMusic();
+        MediaPlayerClass.ResumePlayer();
     }
 
     /**
@@ -82,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onDestroy()
     {
         super.onDestroy();
-        stopService(new Intent(this, MusicService.class));
+        MediaPlayerClass.ReleasePlayer();
     }
 
     /**

@@ -9,10 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_calc_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Calculator">
-        <service
-            android:name=".MusicService"
-            android:enabled="true"
-            android:exported="true" />
 
         <activity
             android:name=".MainActivity"
