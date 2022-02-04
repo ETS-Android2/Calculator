@@ -9,28 +9,46 @@ import android.net.Uri;
  * MediaPlayerClass: Αναπαραγωγή μουσικής με mediaplayer
  * Το τραγούδι παίζει σε λούπα
  */
-public class MediaPlayerClass implements MediaPlayer.OnCompletionListener
+public class MediaPlayerClass
 {
     private static MediaPlayer mediaPlayer;
     private static Context mdContext;
 
+    /**
+     * Αρχικοποίηση MediaPlayer
+     * @param mContext
+     */
     public static void initPlayer(Context mContext)
     {
         mdContext = mContext;
 
         try
         {
-        Uri mUri = Uri.parse("android.resource://com.e.calculator/" + R.raw.summer);
-        mediaPlayer = new MediaPlayer();
-        mediaPlayer.setAudioAttributes(
-                new AudioAttributes.Builder()
-                        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                        .setUsage(AudioAttributes.USAGE_MEDIA)
-                        .build()
-        );
-        mediaPlayer.setDataSource(mContext, mUri);
-        mediaPlayer.prepare();
-        mediaPlayer.start();
+            Uri mUri = Uri.parse("android.resource://com.e.calculator/" + R.raw.summer);
+            mediaPlayer = new MediaPlayer();
+            mediaPlayer.setAudioAttributes(
+                    new AudioAttributes.Builder()
+                            .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                            .setUsage(AudioAttributes.USAGE_MEDIA)
+                            .build()
+            );
+            mediaPlayer.setDataSource(mContext, mUri);
+            mediaPlayer.prepare();
+            mediaPlayer.start();
+            mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener()
+            {
+
+                /**
+                 * Καλείται στην ολοκλήρωση της αναπαραγωγής.
+                 * Ξαναρχιζει την αναπαραγωγή του τραγουδιού από την αρχή.
+                 * @param mp: MediaPlayer
+                 */
+                @Override
+                public void onCompletion(MediaPlayer mp)
+                {
+                    initPlayer(mContext);
+                }
+            });
         }
         catch (Exception e)
         {
@@ -38,6 +56,9 @@ public class MediaPlayerClass implements MediaPlayer.OnCompletionListener
         }
     }
 
+    /**
+     * Παύση αναπαραγωγής
+     */
     public static void PausePlayer()
     {
         try
@@ -50,6 +71,9 @@ public class MediaPlayerClass implements MediaPlayer.OnCompletionListener
         }
     }
 
+    /**
+     * Συνέχεια αναπαραγωγής
+     */
     public static void ResumePlayer()
     {
         try
@@ -62,26 +86,15 @@ public class MediaPlayerClass implements MediaPlayer.OnCompletionListener
         }
     }
 
+    /**
+     * Αποδέσμευση MediaPlayer
+     */
     public static void ReleasePlayer()
     {
         try
         {
             mediaPlayer.stop();
             mediaPlayer.release();
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-    }
-
-
-    @Override
-    public void onCompletion(MediaPlayer mp)
-    {
-        try
-        {
-            initPlayer(mdContext);
         }
         catch (Exception e)
         {
